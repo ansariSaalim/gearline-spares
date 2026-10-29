@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Gearline Spares</title>
+<meta name="description" content="Car and bike spare parts with part numbers and fitment. Order and pay on WhatsApp.">
+<meta name="theme-color" content="#15202A">
+<meta property="og:title" content="Gearline Spares">
+<meta property="og:description" content="Car and bike spare parts. Order and pay on WhatsApp.">
+<meta property="og:type" content="website">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Gearline">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=IBM+Plex+Mono:wght@500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="bar">
+  <div class="bar-in">
+    <a class="brand" href="#shop" aria-label="Go to shop">
+      <svg width="34" height="34" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path d="M24 4l17.3 10v20L24 44 6.7 34V14z" stroke-linejoin="round"/><circle cx="24" cy="24" r="7"/></svg>
+      <span><b id="shopName">Gearline Spares</b><small>Car &amp; bike parts · Pune</small></span>
+    </a>
+    <nav class="mode" aria-label="View">
+      <a href="#shop" id="navShop">Shop</a>
+      <a href="#admin" id="navAdmin">Admin</a>
+    </nav>
+    <button class="cart-btn" id="cartBtn" type="button" aria-label="Open cart">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 4h2l2.4 11h11l2-8H6.3"/><circle cx="9" cy="20" r="1.5"/><circle cx="17" cy="20" r="1.5"/></svg>
+      <span class="lbl">Cart</span><span class="count num" id="cartCount">0</span>
+    </button>
+  </div>
+</header>
+
+<main>
+  <!-- SHOP -->
+  <section id="shopView">
+    <div class="wrap">
+      <p class="demo-note" id="demoNote">Demo store. Orders go to the shop's WhatsApp number set in Admin → Settings.</p>
+      <div class="intro">
+        <div>
+          <p class="eyebrow">Demo storefront</p>
+          <h1>Spare parts for cars and bikes, ordered over WhatsApp</h1>
+          <p class="lede">Find your part by vehicle or part number, then send the order to our counter on WhatsApp. We confirm stock and share a UPI payment request in the same chat. Prices include 18% GST.</p>
+        </div>
+        <ol class="steps">
+          <li><div><b>Match the part number</b><span>Every listing shows the OEM or brand part number and the vehicles it fits.</span></div></li>
+          <li><div><b>Send the order on WhatsApp</b><span>Your cart goes to the seller as a ready-made message with items and totals.</span></div></li>
+          <li><div><b>Pay on WhatsApp</b><span>The seller replies with a UPI request. Pay, share the screenshot, and we dispatch.</span></div></li>
+        </ol>
+      </div>
+
+      <div class="tools">
+        <label class="field search">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4" stroke-linecap="round"/></svg>
+          <input id="q" type="search" placeholder="Search part name, part no. or brand" aria-label="Search parts" autocomplete="off">
+        </label>
+        <label class="field vehicle">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M3 15l2-6h14l2 6v4H3z"/><circle cx="7.5" cy="15.5" r="1.3"/><circle cx="16.5" cy="15.5" r="1.3"/></svg>
+          <select id="make" aria-label="Filter by vehicle make"></select>
+        </label>
+      </div>
+      <div class="chips" id="cats" role="group" aria-label="Category"></div>
+      <div class="meta-row"><span id="resultCount" class="num"></span><span>Tap a part for specs and fitment</span></div>
+      <div class="grid" id="grid"></div>
+
+      <footer class="site-foot">
+        <div><b id="footShop">Gearline Spares</b>Genuine and OEM-grade spares for cars and two-wheelers. Prices include 18% GST. Delivery across Maharashtra in 1–3 days.</div>
+        <div><b>Counter hours</b>Mon–Sat, 9:30 am – 8:00 pm<br>Sunday closed</div>
+        <div><b>Order help</b>WhatsApp <span id="footWa" class="num"></span><br><a id="footWaLink" href="#" target="_blank" rel="noopener">Chat with the counter</a></div>
+      </footer>
+    </div>
+  </section>
+
+  <!-- ADMIN -->
+  <section id="adminView" hidden>
+    <div class="wrap">
+      <form class="gate" id="gate" novalidate>
+        <p class="eyebrow">Seller console</p>
+        <h2>Counter login</h2>
+        <p class="note">Manage parts, stock, prices and WhatsApp orders.</p>
+        <input class="pin field" id="pin" inputmode="numeric" maxlength="4" autocomplete="off" aria-label="4-digit PIN" placeholder="••••">
+        <p class="err" id="pinErr" hidden>That PIN doesn't match. The demo PIN is 1234.</p>
+        <button class="btn primary block" type="submit">Unlock console</button>
+        <p class="hint">Demo PIN: <b class="mono">1234</b></p>
+      </form>
+
+      <div id="console" hidden>
+        <div class="admin-head">
+          <div><p class="eyebrow">Seller console</p><h2 id="adminShop">Gearline Spares</h2></div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap">
+            <a class="btn ghost sm" href="#shop">View storefront</a>
+            <button class="btn ghost sm" id="lockBtn" type="button">Lock</button>
+          </div>
+        </div>
+        <div class="stats" id="stats"></div>
+        <div class="tabs" role="tablist">
+          <button role="tab" data-tab="orders" aria-selected="true">Orders<span class="n num" id="nOrders">0</span></button>
+          <button role="tab" data-tab="products" aria-selected="false">Parts &amp; stock<span class="n num" id="nProducts">0</span></button>
+          <button role="tab" data-tab="settings" aria-selected="false">Settings</button>
+        </div>
+        <div id="tab-orders"></div>
+        <div id="tab-products" hidden></div>
+        <div id="tab-settings" hidden></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div class="cartbar" id="cartbar" hidden>
+  <div><small id="cbItems" class="num">0 items</small><b id="cbTotal" class="num">₹0</b></div>
+  <button class="btn primary" type="button" data-open-cart>View cart</button>
+</div>
+
+<div class="scrim" id="scrim" hidden></div>
+
+<aside class="drawer" id="drawer" hidden aria-label="Cart">
+  <div class="d-head"><h2 id="dTitle">Your cart</h2><button class="x" type="button" data-close aria-label="Close cart"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+  <div class="d-body" id="dBody"></div>
+  <div class="d-foot" id="dFoot"></div>
+</aside>
+
+<div class="modal" id="pModal" hidden role="dialog" aria-modal="true" aria-labelledby="pTitle">
+  <div class="m-panel">
+    <div class="m-head"><span class="eyebrow" id="pCat"></span><button class="x" type="button" data-close aria-label="Close"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+    <div class="m-body" id="pBody"></div>
+  </div>
+</div>
+
+<div class="modal" id="fModal" hidden role="dialog" aria-modal="true" aria-labelledby="fTitle">
+  <div class="m-panel" style="max-width:620px">
+    <div class="m-head"><h2 id="fTitle">Add part</h2><button class="x" type="button" data-close aria-label="Close"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+    <form class="m-body form" id="pForm" novalidate>
+      <input type="hidden" id="f_id">
+      <label>Part name<input id="f_name" required placeholder="Front Brake Pad Set"></label>
+      <div class="two">
+        <label>Part number<input id="f_part" required placeholder="BP-0986AB2517"></label>
+        <label>Brand<input id="f_brand" placeholder="Bosch"></label>
+      </div>
+      <div class="two">
+        <label>Category<select id="f_cat"></select></label>
+        <label>Vehicle makes <span class="opt">comma separated</span><input id="f_makes" placeholder="Maruti Suzuki, Hyundai"></label>
+      </div>
+      <label>Fits <span class="opt">models and years</span><input id="f_fits" placeholder="Swift 2018–2024, Dzire, Baleno"></label>
+      <div class="three">
+        <label>Price (₹)<input id="f_price" type="number" min="1" inputmode="numeric"></label>
+        <label>MRP (₹)<input id="f_mrp" type="number" min="0" inputmode="numeric"></label>
+        <label>Stock<input id="f_stock" type="number" min="0" inputmode="numeric"></label>
+      </div>
+      <label>Description<textarea id="f_desc" rows="2"></textarea></label>
+      <label>Photo URL <span class="opt">optional, a link to a JPG or PNG of the part</span><input id="f_img" type="url" inputmode="url" placeholder="https://…/brake-pad.jpg"></label>
+      <label>Specs <span class="opt">one per line, as Key: Value</span><textarea id="f_specs" rows="3" placeholder="Position: Front&#10;Material: Ceramic"></textarea></label>
+      <p class="err" id="fErr" hidden></p>
+      <div style="display:flex;gap:10px;justify-content:flex-end">
+        <button class="btn ghost" type="button" data-close>Cancel</button>
+        <button class="btn primary" type="submit" id="fSave">Save part</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="toast" id="toast" hidden role="status"></div>
+
+<script src="js/data.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
