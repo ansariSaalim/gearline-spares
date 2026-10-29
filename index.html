@@ -5,7 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Gearline Spares</title>
 <meta name="description" content="Car and bike spare parts with part numbers and fitment. Pay by UPI, order on WhatsApp.">
-<meta name="theme-color" content="#15202A">
+<meta name="theme-color" content="#F4F5F7" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0E1014" media="(prefers-color-scheme: dark)">
 <meta property="og:title" content="Gearline Spares">
 <meta property="og:description" content="Car and bike spare parts. Pay by UPI, order on WhatsApp.">
 <meta property="og:type" content="website">
@@ -14,15 +15,15 @@
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <script>try{var t=localStorage.getItem('gearline-theme');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
-<link rel="manifest" href="manifest.webmanifest?v=5">
+<link rel="manifest" href="manifest.webmanifest?v=6">
 <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Gearline">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=IBM+Plex+Mono:wght@500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
-<link rel="stylesheet" href="css/style.css?v=5">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap">
+<link rel="stylesheet" href="css/style.css?v=6">
 </head>
 <body>
 
@@ -51,38 +52,40 @@
   <!-- SHOP -->
   <section id="shopView">
     <div class="wrap shop">
-      <section class="promo" aria-labelledby="promoTitle">
-        <div class="promo-copy">
-          <p class="eyebrow">Genuine &amp; OEM-grade spares</p>
-          <h1 id="promoTitle">The right part, matched by part number</h1>
-          <p class="promo-lede">For Maruti Suzuki, Hyundai, Tata, Honda, Bajaj, Hero and more. Pay by UPI and your order reaches our counter on WhatsApp.</p>
-          <ul class="trust">
-            <li>GST invoice</li>
-            <li>Dispatch in 24 hrs</li>
-            <li>UPI or cash on delivery</li>
-          </ul>
-        </div>
-        <div class="promo-art" aria-hidden="true">
-          <img src="images/bp-swift.jpg" alt="" width="300" height="300">
-          <img src="images/plug-k12.jpg" alt="" width="300" height="300">
-          <img src="images/chain-splendor.jpg" alt="" width="300" height="300">
+      <div class="hello">
+        <p class="hello-sub"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>Delivering across Maharashtra</p>
+        <h1>Find the right part for your ride</h1>
+      </div>
+
+      <div class="banners" aria-label="Offers">
+        <article class="banner b-accent">
+          <div class="b-copy"><span class="b-tag">This week</span><h3>Up to 25% off on filters</h3><p>Oil, air and AC cabin filters for popular cars.</p><button class="b-btn" type="button" data-cat="filters">Shop filters</button></div>
           <img src="images/air-nexon.jpg" alt="" width="300" height="300">
-        </div>
-      </section>
+        </article>
+        <article class="banner b-dark">
+          <div class="b-copy"><span class="b-tag">Easy checkout</span><h3>Pay by UPI, order on WhatsApp</h3><p>GPay, PhonePe, Paytm or scan a QR code.</p><button class="b-btn" type="button" data-cat="all">Start shopping</button></div>
+          <img src="images/plug-k12.jpg" alt="" width="300" height="300">
+        </article>
+        <article class="banner b-soft">
+          <div class="b-copy"><span class="b-tag">Delivery</span><h3>Free delivery above <span id="bnFree">₹1,999</span></h3><p>Dispatch within 24 hours, with GST invoice.</p><button class="b-btn" type="button" data-cat="bike">Shop bike parts</button></div>
+          <img src="images/chain-splendor.jpg" alt="" width="300" height="300">
+        </article>
+      </div>
 
       <section class="cats" aria-labelledby="catTitle">
-        <div class="sec-head"><h2 id="catTitle">Shop by category</h2></div>
+        <div class="sec-head"><h2 id="catTitle">Categories</h2></div>
         <div class="cat-row" id="cats" role="group" aria-label="Category"></div>
       </section>
 
       <section aria-labelledby="gridTitle">
         <div class="sec-head">
-          <h2 id="gridTitle">Parts in stock</h2>
-          <span id="resultCount" class="sec-meta num"></span>
+          <h2 id="gridTitle">Popular parts</h2>
+          <button class="see-all" type="button" data-clear>See all</button>
         </div>
         <div class="filters">
           <label class="select"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M3 15l2-6h14l2 6v4H3z"/><circle cx="7.5" cy="15.5" r="1.3"/><circle cx="16.5" cy="15.5" r="1.3"/></svg><select id="make" aria-label="Filter by vehicle make"></select></label>
           <label class="select"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M7 4v16M3 16l4 4 4-4M17 20V4M13 8l4-4 4 4"/></svg><select id="sort" aria-label="Sort parts"><option value="pop">Popular</option><option value="low">Price: low to high</option><option value="high">Price: high to low</option><option value="off">Biggest discount</option></select></label>
+          <span id="resultCount" class="sec-meta num"></span>
         </div>
         <div class="grid" id="grid"></div>
       </section>
@@ -140,10 +143,17 @@
   </section>
 </main>
 
-<div class="cartbar" id="cartbar" hidden>
-  <div><small id="cbItems" class="num">0 items</small><b id="cbTotal" class="num">₹0</b></div>
-  <button class="btn primary" type="button" data-open-cart>View cart</button>
-</div>
+<button class="cartbar" id="cartbar" type="button" data-open-cart hidden>
+  <span class="cb-count"><b id="cbItems" class="num">0 items</b><span id="cbTotal" class="num">₹0</span></span>
+  <span class="cb-go">View cart <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></span>
+</button>
+
+<nav class="tabbar" id="tabbar" aria-label="Main">
+  <button type="button" data-go="home" aria-current="page"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M4 10.5L12 4l8 6.5V20h-5.5v-5h-5v5H4z"/></svg><span>Home</span></button>
+  <button type="button" data-go="cats"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="4" y="4" width="6.5" height="6.5" rx="2"/><rect x="13.5" y="4" width="6.5" height="6.5" rx="2"/><rect x="4" y="13.5" width="6.5" height="6.5" rx="2"/><rect x="13.5" y="13.5" width="6.5" height="6.5" rx="2"/></svg><span>Categories</span></button>
+  <button type="button" data-go="search"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg><span>Search</span></button>
+  <button type="button" data-go="cart"><span class="tb-ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 4h2l2.4 11h11l2-8H6.3"/><circle cx="9" cy="20" r="1.5"/><circle cx="17" cy="20" r="1.5"/></svg><i id="tabCount" class="num" hidden>0</i></span><span>Cart</span></button>
+</nav>
 
 <div class="scrim" id="scrim" hidden></div>
 
@@ -195,8 +205,8 @@
 <div class="toast" id="toast" hidden role="status"></div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js" defer></script>
-<script src="js/data.js?v=5"></script>
-<script src="js/share.js?v=5"></script>
-<script src="js/app.js?v=5"></script>
+<script src="js/data.js?v=6"></script>
+<script src="js/share.js?v=6"></script>
+<script src="js/app.js?v=6"></script>
 </body>
 </html>

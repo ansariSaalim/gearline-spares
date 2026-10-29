@@ -1,6 +1,6 @@
 // Offline cache for the Gearline Spares demo. Bump VERSION after changing any file.
-const VERSION = 'gearline-v5';
-const ASSETS = ['./', 'index.html', 'css/style.css?v=5', 'js/data.js?v=5', 'js/app.js?v=5', 'manifest.webmanifest?v=5', 'icons/icon.svg', 'icons/icon-192.png'];
+const VERSION = 'gearline-v6';
+const ASSETS = ['./', 'index.html', 'css/style.css?v=6', 'js/data.js?v=6', 'js/app.js?v=6', 'manifest.webmanifest?v=6', 'icons/icon.svg', 'icons/icon-192.png'];
 
 self.addEventListener('install', e => {
   e.waitUntil(caches.open(VERSION).then(c => c.addAll(ASSETS)).then(() => self.skipWaiting()));
