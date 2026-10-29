@@ -20,7 +20,7 @@ let cart=read(CART)||[];
 const save=()=>write(KEY,S), saveCart=()=>write(CART,cart);
 let unlocked=false; try{unlocked=sessionStorage.getItem('gl-admin')==='1'}catch(e){}
 
-const f={q:'',cat:'all',make:'all'};
+const f={q:'',cat:'all',make:'all',sort:'pop'};
 let draft=null, utrArmed=false, drawerStep='cart', lastOrder=null, adminTab='orders', orderFilter='all', openId=null, pdQty=1;
 
 /* ---------- helpers ---------- */
@@ -99,7 +99,7 @@ function setQty(id,q){
   const p=prod(id), c=cart.find(x=>x.id===id); if(!c||!p) return;
   c.qty=Math.max(0,Math.min(p.stock,q));
   if(c.qty===0) cart=cart.filter(x=>x.id!==id);
-  saveCart(); syncCartUI(); renderDrawer();
+  saveCart(); syncCartUI(); renderDrawer(); renderShop();
 }
 function syncCartUI(){
   const t=totals();
@@ -110,36 +110,58 @@ function syncCartUI(){
 }
 
 /* ---------- shop ---------- */
+const GRID_ICO='<svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3.5" y="3.5" width="7" height="7" rx="1.5"/><rect x="13.5" y="3.5" width="7" height="7" rx="1.5"/><rect x="3.5" y="13.5" width="7" height="7" rx="1.5"/><rect x="13.5" y="13.5" width="7" height="7" rx="1.5"/></svg>';
 function renderFilters(){
   const makes=[...new Set(S.products.flatMap(p=>p.makes))].sort();
   if(f.make!=='all'&&!makes.includes(f.make)) f.make='all';
   $('#make').innerHTML=`<option value="all">All vehicles</option>`+makes.map(m=>`<option${m===f.make?' selected':''}>${esc(m)}</option>`).join('');
-  const counts={}; S.products.forEach(p=>counts[p.cat]=(counts[p.cat]||0)+1);
-  $('#cats').innerHTML=[['all','All parts'],...Object.entries(CATS).filter(([k])=>counts[k])].map(([k,v])=>`<button class="chip" type="button" data-cat="${k}" aria-pressed="${f.cat===k}">${esc(v)}</button>`).join('');
+  $('#sort').value=f.sort;
+  const by={}; S.products.forEach(p=>(by[p.cat]=by[p.cat]||[]).push(p));
+  const tile=(k,label,n,img)=>`<button class="cat" type="button" data-cat="${k}" aria-pressed="${f.cat===k}"><span class="cat-img">${img}</span><span class="cat-name">${esc(label)}</span><span class="cat-n num">${n} part${n===1?'':'s'}</span></button>`;
+  $('#cats').innerHTML=tile('all','All parts',S.products.length,GRID_ICO)+Object.entries(CATS).filter(([k])=>by[k]).map(([k,v])=>{const p=by[k].find(x=>x.img)||by[k][0];return tile(k,v,by[k].length,art(p))}).join('');
+}
+function cardBuy(p){
+  if(p.stock<=0) return `<button class="btn ghost block sm" type="button" data-open="${p.id}">Out of stock · Ask</button>`;
+  const c=cart.find(x=>x.id===p.id);
+  if(!c) return `<button class="btn primary block sm" type="button" data-add="${p.id}">Add to cart</button>`;
+  return `<div class="step block" role="group" aria-label="Quantity in cart"><button type="button" data-q="${p.id}" data-d="-1" aria-label="Remove one">−</button><span class="num">${c.qty} in cart</span><button type="button" data-q="${p.id}" data-d="1" aria-label="Add one" ${c.qty>=p.stock?'disabled':''}>+</button></div>`;
+}
+function availTxt(p){
+  if(p.stock<=0) return '<span class="avail out">Out of stock</span>';
+  if(p.stock<=5) return `<span class="avail low">Only ${p.stock} left</span>`;
+  return '<span class="avail ok">In stock</span>';
 }
 function card(p){
   const off=p.mrp>p.price?Math.round((1-p.price/p.mrp)*100):0;
   return `<article class="card">
     <button class="card-hit" type="button" data-open="${p.id}" aria-label="View ${esc(p.name)}">
-      <div class="thumb">${art(p)}<span class="pn">${esc(p.part)}</span>${off?`<span class="off">${off}% off</span>`:''}</div>
-      <div class="body"><span class="mk">${esc(p.brand)}</span><h3>${esc(p.name)}</h3><span class="fits">Fits ${esc(p.fits)}</span></div>
+      <div class="thumb">${art(p)}${off?`<span class="off">${off}% off</span>`:''}</div>
+      <div class="body">
+        <h3>${esc(p.name)}</h3>
+        <span class="meta"><span class="mono">${esc(p.part)}</span> · ${esc(p.brand)}</span>
+        <span class="fits">Fits ${esc(p.fits)}</span>
+      </div>
     </button>
     <div class="foot">
-      <div class="price"><b>${inr(p.price)}</b>${p.mrp>p.price?`<s>${inr(p.mrp)}</s>`:''}</div>
-      <div>${stockPill(p)}</div>
-      <div class="actions">
-        <button class="btn primary" type="button" data-add="${p.id}" ${p.stock<=0?'disabled':''}>${p.stock<=0?'Sold out':'Add'}</button>
-        <a class="btn wa" href="${wa(S.settings.wa,askMsg(p))}" target="_blank" rel="noopener" aria-label="Ask about ${esc(p.name)} on WhatsApp" title="Ask on WhatsApp">${chatIco}</a>
-      </div>
+      <div class="price"><b>${inr(p.price)}</b>${off?`<s>${inr(p.mrp)}</s>`:''}</div>
+      ${availTxt(p)}
+      ${cardBuy(p)}
     </div>
   </article>`;
 }
 function renderShop(){
   renderFilters();
   const q=f.q.trim().toLowerCase();
-  const list=S.products.filter(p=>(f.cat==='all'||p.cat===f.cat)&&(f.make==='all'||p.makes.includes(f.make))&&(!q||[p.name,p.part,p.brand,p.fits].join(' ').toLowerCase().includes(q)));
-  $('#resultCount').textContent=`${list.length} part${list.length===1?'':'s'}`+(f.make!=='all'?` for ${f.make}`:'');
-  $('#grid').innerHTML=list.length?list.map(card).join(''):`<div class="empty"><b>No parts match those filters.</b><span>Try another vehicle or send us the part number on WhatsApp.</span><button class="btn ghost sm" type="button" data-clear>Clear filters</button></div>`;
+  document.body.classList.toggle('searching',!!q);
+  let list=S.products.filter(p=>(f.cat==='all'||p.cat===f.cat)&&(f.make==='all'||p.makes.includes(f.make))&&(!q||[p.name,p.part,p.brand,p.fits,CATS[p.cat]].join(' ').toLowerCase().includes(q)));
+  const offOf=p=>p.mrp>p.price?(1-p.price/p.mrp):0;
+  if(f.sort==='low') list=list.slice().sort((a,b)=>a.price-b.price);
+  else if(f.sort==='high') list=list.slice().sort((a,b)=>b.price-a.price);
+  else if(f.sort==='off') list=list.slice().sort((a,b)=>offOf(b)-offOf(a));
+  else list=list.slice().sort((a,b)=>(b.stock>0)-(a.stock>0));
+  $('#gridTitle').textContent=q?`Results for “${f.q.trim()}”`:(f.cat==='all'?'Parts in stock':CATS[f.cat]);
+  $('#resultCount').textContent=`${list.length} part${list.length===1?'':'s'}`+(f.make!=='all'?` · ${f.make}`:'');
+  $('#grid').innerHTML=list.length?list.map(card).join(''):`<div class="empty"><b>No parts match.</b><span>Try another vehicle or category, or send us the part number on WhatsApp.</span><button class="btn ghost sm" type="button" data-clear>Clear filters</button></div>`;
 }
 
 /* ---------- product modal ---------- */
@@ -149,7 +171,7 @@ function renderProduct(){
   pdQty=Math.max(1,Math.min(pdQty,Math.max(1,p.stock)));
   $('#pCat').textContent=CATS[p.cat]||'Part';
   $('#pBody').innerHTML=`<div class="pd">
-    <div class="thumb">${art(p)}<span class="pn">${esc(p.part)}</span></div>
+    <div class="thumb">${art(p)}</div>
     <div class="pd-info">
       <span class="eyebrow" style="color:var(--muted)">${esc(p.brand)}</span>
       <h3 id="pTitle">${esc(p.name)}</h3>
@@ -392,8 +414,7 @@ function route(){
   const h=location.hash.slice(1);
   view=h==='admin'?'admin':'shop';
   $('#shopView').hidden=view!=='shop'; $('#adminView').hidden=view!=='admin';
-  $('#navShop').toggleAttribute('aria-current',false); $('#navAdmin').toggleAttribute('aria-current',false);
-  (view==='admin'?$('#navAdmin'):$('#navShop')).setAttribute('aria-current','page');
+  document.body.classList.toggle('is-admin',view==='admin');
   $('#shopName').textContent=S.settings.shop; $('#footShop').textContent=S.settings.shop;
   $('#footWa').textContent=showPhone(S.settings.wa); $('#footWaLink').href=wa(S.settings.wa,`Hi ${S.settings.shop}, I need help finding a part.\n\nVehicle: \nPart needed: `);
   if(view==='admin'){if(!$('#drawer').hidden)closeDrawer();renderAdmin()}
@@ -407,8 +428,8 @@ document.addEventListener('click',e=>{
   const t=e.target.closest('button,a,[data-open]'); if(!t) { if(e.target.id==='scrim'||e.target.classList.contains('modal')) closeAll(); return }
   const d=t.dataset;
   if(d.open){openProduct(d.open);return}
-  if(d.add){addToCart(d.add,1);renderShop();return}
-  if(d.addPd){addToCart(d.addPd,pdQty);return}
+  if(d.add){addToCart(d.add,1,true);renderShop();return}
+  if(d.addPd){addToCart(d.addPd,pdQty);renderShop();return}
   if(d.pdq){pdQty+=Number(d.pdq);renderProduct();return}
   if(d.copyPn!==undefined){copy(prod(openId).part,$('#pnCode'));return}
   if(d.share){const p=prod(d.share),url=productUrl(p.id);
@@ -416,8 +437,8 @@ document.addEventListener('click',e=>{
     else if(navigator.clipboard){navigator.clipboard.writeText(url).then(()=>toast('Product link copied'),()=>toast(url))}
     else toast(url);
     return}
-  if(d.cat){f.cat=d.cat;renderShop();return}
-  if(d.clear!==undefined){f.q='';f.cat='all';f.make='all';$('#q').value='';renderShop();return}
+  if(d.cat){f.cat=d.cat;renderShop();if(innerWidth<760)$('#gridTitle').scrollIntoView({behavior:'smooth',block:'start'});return}
+  if(d.clear!==undefined){f.q='';f.cat='all';f.make='all';f.sort='pop';$('#q').value='';renderShop();return}
   if(t.id==='cartBtn'||d.openCart!==undefined){openDrawer();return}
   if(d.close!==undefined){
     if(t.closest('#drawer')) closeDrawer(); else if(t.closest('#pModal')) closeProduct(); else if(t.closest('#fModal')) closeForm();
@@ -453,9 +474,10 @@ document.addEventListener('change',e=>{
   if(e.target.name==='pay'){const b=$('#coBtn');if(b){const cod=e.target.value==='cod';b.className='btn '+(cod?'wa':'primary');b.innerHTML=cod?chatIco+'Place order on WhatsApp':'Continue to UPI payment'}}
   if(e.target.id==='c_utr'){utrArmed=false}
   if(e.target.id==='make'){f.make=e.target.value;renderShop()}
+  if(e.target.id==='sort'){f.sort=e.target.value;renderShop()}
   if(e.target.dataset.status){const o=S.orders.find(x=>x.id===e.target.dataset.status);o.status=e.target.value;save();renderAdmin();toast(`${o.id} marked ${STATUS[o.status][0].toLowerCase()}`)}
 });
-$('#q').addEventListener('input',e=>{f.q=e.target.value;renderShop()});
+$('#q').addEventListener('input',e=>{const was=!!f.q.trim();f.q=e.target.value;if(location.hash==='#admin')location.hash='shop';renderShop();if(!was&&f.q.trim())scrollTo({top:0})});
 $('#gate').addEventListener('submit',e=>{
   e.preventDefault();
   if($('#pin').value.trim()==='1234'){unlocked=true;try{sessionStorage.setItem('gl-admin','1')}catch(err){}$('#pin').value='';$('#pinErr').hidden=true;renderAdmin()}
