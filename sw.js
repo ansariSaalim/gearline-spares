@@ -1,5 +1,5 @@
 // Offline cache for the Gearline Spares demo. Bump VERSION after changing any file.
-const VERSION = 'gearline-v1';
+const VERSION = 'gearline-v2';
 const ASSETS = ['./', 'index.html', 'css/style.css', 'js/data.js', 'js/app.js', 'manifest.webmanifest', 'icons/icon.svg', 'icons/icon-192.png'];
 
 self.addEventListener('install', e => {

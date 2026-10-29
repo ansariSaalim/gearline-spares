@@ -217,7 +217,7 @@ function renderDrawer(){
       </div>
       <p class="err" id="coErr" hidden></p>
     </form>`;
-    foot.innerHTML=totalsHTML(t)+`<div style="display:grid;grid-template-columns:auto 1fr;gap:10px"><button class="btn ghost" type="button" data-back>Back</button><button class="btn wa" type="button" data-confirm>${chatIco}Place order on WhatsApp</button></div>`;
+    foot.innerHTML=totalsHTML(t)+`<div class="co-acts"><button class="btn ghost" type="button" data-back>Back</button><button class="btn wa" type="button" data-confirm>${chatIco}Place order on WhatsApp</button></div>`;
   } else if(drawerStep==='done'&&lastOrder){
     const o=lastOrder, msg=orderMsg(o);
     $('#dTitle').textContent='Send your order';
@@ -225,7 +225,7 @@ function renderDrawer(){
       <pre class="msg" id="orderMsg">${esc(msg)}</pre>
       <div class="seller"><span>Seller’s WhatsApp</span><b>${showPhone(S.settings.wa)}</b></div>
       <p class="note">If WhatsApp doesn’t open, copy the message and send it to the number above.</p>`;
-    foot.innerHTML=`<a class="btn wa block" href="${wa(S.settings.wa,msg)}" target="_blank" rel="noopener">${chatIco}Open WhatsApp to send</a><div style="display:grid;grid-template-columns:1fr 1fr;gap:10px"><button class="btn ghost" type="button" data-copy-order>Copy message</button><button class="btn ghost" type="button" data-close>Back to shop</button></div>`;
+    foot.innerHTML=`<a class="btn wa block" href="${wa(S.settings.wa,msg)}" target="_blank" rel="noopener">${chatIco}Open WhatsApp to send</a><div class="done-acts"><button class="btn ghost" type="button" data-copy-order>Copy message</button><button class="btn ghost" type="button" data-close>Back to shop</button></div>`;
   }
 }
 function confirmOrder(){
@@ -292,9 +292,9 @@ function renderProducts(){
   $('#tab-products').innerHTML=`<div class="panel-top"><p class="note">Stock drops automatically when a customer confirms an order.</p><button class="btn primary sm" type="button" data-new>+ Add part</button></div>
   <div class="tbl-wrap"><table><thead><tr><th>Part</th><th>Category</th><th class="r">Price</th><th class="r">MRP</th><th>Stock</th><th class="r">Actions</th></tr></thead><tbody>
   ${S.products.map(p=>`<tr><td><div class="p-cell"><div class="ic">${art(p)}</div><div><b>${esc(p.name)}</b><br><span class="pn">${esc(p.part)} · ${esc(p.brand)}</span></div></div></td>
-    <td>${esc(CATS[p.cat]||p.cat)}</td><td class="r">${inr(p.price)}</td><td class="r">${p.mrp?inr(p.mrp):'—'}</td>
-    <td><div style="display:flex;align-items:center;gap:8px"><div class="step"><button type="button" data-stock="${p.id}" data-d="-1" aria-label="Decrease stock" ${p.stock<=0?'disabled':''}>−</button><span class="num">${p.stock}</span><button type="button" data-stock="${p.id}" data-d="1" aria-label="Increase stock">+</button></div>${p.stock<=0?'<span class="pill bad">Out</span>':p.stock<=5?'<span class="pill warn">Low</span>':''}</div></td>
-    <td><div class="row-acts"><button class="btn ghost sm" type="button" data-edit="${p.id}">Edit</button><button class="btn danger sm" type="button" data-del="${p.id}">Delete</button></div></td></tr>`).join('')}
+    <td data-l="Category">${esc(CATS[p.cat]||p.cat)}</td><td class="r" data-l="Price">${inr(p.price)}</td><td class="r" data-l="MRP">${p.mrp?inr(p.mrp):'—'}</td>
+    <td data-l="Stock"><div style="display:flex;align-items:center;gap:8px"><div class="step"><button type="button" data-stock="${p.id}" data-d="-1" aria-label="Decrease stock" ${p.stock<=0?'disabled':''}>−</button><span class="num">${p.stock}</span><button type="button" data-stock="${p.id}" data-d="1" aria-label="Increase stock">+</button></div>${p.stock<=0?'<span class="pill bad">Out</span>':p.stock<=5?'<span class="pill warn">Low</span>':''}</div></td>
+    <td class="acts-cell"><div class="row-acts"><button class="btn ghost sm" type="button" data-edit="${p.id}">Edit</button><button class="btn danger sm" type="button" data-del="${p.id}">Delete</button></div></td></tr>`).join('')}
   </tbody></table></div>`;
 }
 function renderSettings(){

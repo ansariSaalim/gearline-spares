@@ -297,3 +297,62 @@ img{max-width:100%}
 .site-foot a{color:var(--wa);font-weight:600}
 .demo-note{font-size:12.5px;background:var(--warn-soft);color:var(--warn);border-radius:var(--r);padding:8px 12px;margin-bottom:18px}
 @media (max-width:679px){.pd .thumb{aspect-ratio:16/9}}
+
+/* ---- responsive fixes ---- */
+.brand > span{min-width:0}
+.admin-acts{display:flex;gap:8px;flex-wrap:wrap}
+.form-acts{display:flex;gap:10px;justify-content:flex-end}
+.co-acts{display:grid;grid-template-columns:auto 1fr;gap:10px}
+.done-acts{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.btn{max-width:100%}
+
+/* Phones: top bar becomes two rows (brand + cart, then Shop/Admin switch) and scrolls away;
+   the bottom cart bar keeps the cart reachable. */
+@media (max-width:600px){
+  .bar{position:relative;top:auto}
+  .bar-in{flex-wrap:wrap;row-gap:10px}
+  .brand{order:1;flex:1 1 0}
+  .cart-btn{order:2}
+  .mode{order:3;flex:1 1 100%}
+  .mode a{flex:1;text-align:center;padding:8px 10px}
+  .brand b{font-size:20px}
+  .toast{top:calc(12px + env(safe-area-inset-top,0px));bottom:auto}
+  .intro{margin-bottom:22px}
+  .tools .vehicle{flex:1 1 100%}
+  .meta-row span:last-child{display:none}
+  .tabs button{padding:10px 12px}
+  .wide-only{display:none}
+  .admin-head{align-items:flex-start}
+  .form .two{grid-template-columns:1fr}
+}
+@media (max-width:380px){
+  .card .body{padding:10px 10px 2px}
+  .card .foot{padding:6px 10px 10px;gap:8px}
+  .card h3{font-size:14px}
+  .price b{font-size:16px}
+  .price s{font-size:12px}
+  .card .actions{gap:6px}
+  .card .actions .btn.wa{width:38px}
+  .co-acts{grid-template-columns:1fr}
+  .co-acts [data-back]{order:2}
+  .done-acts{grid-template-columns:1fr}
+  .form .three{grid-template-columns:1fr 1fr}
+  .form .three label:last-child{grid-column:1/-1}
+  .pd-pn{gap:4px}
+}
+
+/* Admin parts list: table on wide screens, stacked cards on phones and small tablets */
+@media (max-width:700px){
+  .tbl-wrap{overflow:visible;border:0;background:transparent}
+  .tbl-wrap table{min-width:0;display:block}
+  .tbl-wrap thead{display:none}
+  .tbl-wrap tbody{display:grid;gap:10px}
+  .tbl-wrap tr{display:grid;grid-template-columns:1fr 1fr;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+  .tbl-wrap td{display:block;border:0;padding:8px 12px;text-align:left}
+  .tbl-wrap td:first-child{grid-column:1/-1;border-bottom:1px solid var(--line);padding:12px}
+  .tbl-wrap td[data-l]::before{content:attr(data-l);display:block;font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:2px}
+  .tbl-wrap td.acts-cell{grid-column:1/-1;border-top:1px solid var(--line);padding:10px 12px}
+  .tbl-wrap .row-acts{justify-content:stretch}
+  .tbl-wrap .row-acts .btn{flex:1}
+}
+@media (max-width:360px){.brand b{font-size:18px}.brand svg{width:28px;height:28px}}

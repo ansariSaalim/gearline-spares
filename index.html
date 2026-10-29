@@ -94,7 +94,7 @@
       <div id="console" hidden>
         <div class="admin-head">
           <div><p class="eyebrow">Seller console</p><h2 id="adminShop">Gearline Spares</h2></div>
-          <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <div class="admin-acts">
             <a class="btn ghost sm" href="#shop">View storefront</a>
             <button class="btn ghost sm" id="lockBtn" type="button">Lock</button>
           </div>
@@ -102,7 +102,7 @@
         <div class="stats" id="stats"></div>
         <div class="tabs" role="tablist">
           <button role="tab" data-tab="orders" aria-selected="true">Orders<span class="n num" id="nOrders">0</span></button>
-          <button role="tab" data-tab="products" aria-selected="false">Parts &amp; stock<span class="n num" id="nProducts">0</span></button>
+          <button role="tab" data-tab="products" aria-selected="false">Parts<span class="wide-only"> &amp; stock</span><span class="n num" id="nProducts">0</span></button>
           <button role="tab" data-tab="settings" aria-selected="false">Settings</button>
         </div>
         <div id="tab-orders"></div>
@@ -157,7 +157,7 @@
       <label>Photo URL <span class="opt">optional, a link to a JPG or PNG of the part</span><input id="f_img" type="url" inputmode="url" placeholder="https://…/brake-pad.jpg"></label>
       <label>Specs <span class="opt">one per line, as Key: Value</span><textarea id="f_specs" rows="3" placeholder="Position: Front&#10;Material: Ceramic"></textarea></label>
       <p class="err" id="fErr" hidden></p>
-      <div style="display:flex;gap:10px;justify-content:flex-end">
+      <div class="form-acts">
         <button class="btn ghost" type="button" data-close>Cancel</button>
         <button class="btn primary" type="submit" id="fSave">Save part</button>
       </div>
