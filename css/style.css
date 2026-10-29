@@ -356,3 +356,77 @@ img{max-width:100%}
   .tbl-wrap .row-acts .btn{flex:1}
 }
 @media (max-width:360px){.brand b{font-size:18px}.brand svg{width:28px;height:28px}}
+
+/* ===== v4 redesign ===== */
+.icon-btn{flex:none;width:38px;height:38px;display:grid;place-items:center;border-radius:var(--r);border:1px solid var(--chrome-line);background:transparent;color:var(--chrome-ink);cursor:pointer}
+.icon-btn:hover{background:rgba(255,255,255,.06)}
+
+/* hero: dark workshop band that continues the top bar, in both themes */
+.hero-band{background:var(--chrome);color:var(--chrome-ink);border-bottom:1px solid var(--chrome-line)}
+.hero{max-width:1180px;margin:0 auto;display:grid;gap:28px;align-items:center;padding-block:36px 40px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+@media (min-width:860px){.hero{grid-template-columns:1.15fr 1fr;gap:48px;padding-block:56px}}
+.hero-copy{min-width:0;display:grid;gap:14px;align-content:start}
+.hero h1{font-family:var(--f-display);font-weight:700;text-transform:uppercase;font-size:clamp(36px,6vw,64px);line-height:.95;letter-spacing:.005em;max-width:14ch}
+.hero .lede{color:var(--chrome-muted);max-width:52ch;font-size:15.5px}
+.finder{display:flex;flex-wrap:wrap;gap:10px;margin-top:6px}
+.finder .field{background:var(--surface);border-color:transparent;color:var(--ink);min-height:48px}
+.finder .search{flex:1 1 260px}
+.finder .vehicle{flex:0 1 220px}
+.trust{list-style:none;margin:4px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:8px 20px;font-size:13px;color:var(--chrome-muted)}
+.trust li{display:flex;align-items:center;gap:8px}
+.trust li::before{content:"";width:14px;height:14px;flex:none;border-radius:50%;background:var(--accent) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 14'%3E%3Cpath d='M3.5 7.2l2.3 2.2 4.7-4.8' fill='none' stroke='white' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/14px no-repeat}
+.hero-art{display:grid;grid-template-columns:1fr 1fr;gap:10px;max-width:460px;justify-self:end;width:100%}
+.hero-art img{width:100%;height:auto;aspect-ratio:1;object-fit:cover;border-radius:10px;display:block;background:#d9d9da}
+.hero-art img:nth-child(2){transform:translateY(18px)}
+.hero-art img:nth-child(4){transform:translateY(18px)}
+@media (max-width:859px){
+  .hero-art{grid-template-columns:repeat(4,1fr);max-width:none;justify-self:stretch;gap:8px}
+  .hero-art img{border-radius:8px}
+  .hero-art img:nth-child(2),.hero-art img:nth-child(4){transform:none}
+  .hero{padding-block:24px 28px;gap:20px}
+}
+@media (max-width:600px){.finder .vehicle{flex:1 1 100%}.hero .lede{font-size:14.5px}}
+
+.shop-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin:6px 0 12px}
+.shop-head h2{font-family:var(--f-display);text-transform:uppercase;font-size:28px;letter-spacing:.01em}
+.shop-head span{color:var(--muted);font-size:13px}
+
+/* product cards with photos */
+.card{transition:border-color .15s,box-shadow .15s,transform .15s}
+@media (hover:hover) and (prefers-reduced-motion:no-preference){.card:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(10,20,30,.10)}}
+.thumb:has(img.photo){background-image:none;background-color:#d6d6d8}
+.thumb img.photo{object-fit:cover;background:#d6d6d8}
+.thumb .pn{background:rgba(255,255,255,.92);color:#15202A;border-color:transparent}
+.ic:has(img.photo){background:#d6d6d8;overflow:hidden}
+.ic img.photo{object-fit:cover;border-radius:0}
+.pd .thumb{aspect-ratio:1;border:0;overflow:hidden;border-radius:10px}
+@media (max-width:679px){.pd .thumb{aspect-ratio:4/3}}
+
+/* how it works */
+.how{margin-top:40px;display:grid;gap:14px}
+.how h2{font-family:var(--f-display);text-transform:uppercase;font-size:28px}
+.how ol{list-style:none;margin:0;padding:0;display:grid;gap:12px;counter-reset:h}
+@media (min-width:760px){.how ol{grid-template-columns:repeat(3,1fr)}}
+.how li{counter-increment:h;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:16px;display:grid;gap:4px}
+.how li::before{content:counter(h);font-family:var(--f-display);font-weight:700;font-size:22px;width:34px;height:34px;display:grid;place-items:center;border-radius:6px;background:var(--accent);color:var(--accent-ink);margin-bottom:6px}
+.how b{font-weight:600}
+.how span{color:var(--muted);font-size:13.5px}
+
+/* UPI payment step */
+.pay-amt{display:grid;gap:2px;text-align:center;padding:16px;border:1px solid var(--line);border-radius:var(--r);background:var(--sunk)}
+.pay-amt span{font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:600}
+.pay-amt b{font-family:var(--f-display);font-size:44px;line-height:1.05}
+.pay-amt small{color:var(--muted);font-size:13px}
+.btn.lg{padding:14px 16px;font-size:15.5px}
+.upi-apps{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.qr-box{display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:center;border:1px solid var(--line);border-radius:var(--r);padding:12px}
+.qr-box b{display:block;font-size:14px}
+.qr-box span{color:var(--muted);font-size:13px}
+.qr{background:#fff;padding:8px;border-radius:6px;line-height:0}
+.qr img,.qr canvas{display:block;width:148px;height:148px}
+@media (max-width:380px){.qr-box{grid-template-columns:1fr;justify-items:center;text-align:center}}
+.seller .btn{margin-left:auto}
+.seller b{margin-left:auto}
+.seller b+ .btn{margin-left:0}
+@media (max-width:600px){.icon-btn{order:2}}
+@media (max-width:420px){.brand b{font-size:18px}.icon-btn{width:34px;height:34px}}

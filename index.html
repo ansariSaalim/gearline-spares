@@ -9,7 +9,12 @@
 <meta property="og:title" content="Gearline Spares">
 <meta property="og:description" content="Car and bike spare parts. Order and pay on WhatsApp.">
 <meta property="og:type" content="website">
-<link rel="manifest" href="manifest.webmanifest?v=3">
+<meta property="og:image" content="https://ansarisaalim.github.io/gearline-spares/share/store.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<script>try{var t=localStorage.getItem('gearline-theme');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
+<link rel="manifest" href="manifest.webmanifest?v=4">
 <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -17,7 +22,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=IBM+Plex+Mono:wght@500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
-<link rel="stylesheet" href="css/style.css?v=3">
+<link rel="stylesheet" href="css/style.css?v=4">
 </head>
 <body>
 
@@ -27,6 +32,7 @@
       <svg width="34" height="34" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path d="M24 4l17.3 10v20L24 44 6.7 34V14z" stroke-linejoin="round"/><circle cx="24" cy="24" r="7"/></svg>
       <span><b id="shopName">Gearline Spares</b><small>Car &amp; bike parts · Pune</small></span>
     </a>
+    <button class="icon-btn" id="themeBtn" type="button" aria-label="Theme"></button>
     <nav class="mode" aria-label="View">
       <a href="#shop" id="navShop">Shop</a>
       <a href="#admin" id="navAdmin">Admin</a>
@@ -41,34 +47,53 @@
 <main>
   <!-- SHOP -->
   <section id="shopView">
-    <div class="wrap">
-      <p class="demo-note" id="demoNote">Demo store. Orders go to the shop's WhatsApp number set in Admin → Settings.</p>
-      <div class="intro">
-        <div>
-          <p class="eyebrow">Demo storefront</p>
-          <h1>Spare parts for cars and bikes, ordered over WhatsApp</h1>
-          <p class="lede">Find your part by vehicle or part number, then send the order to our counter on WhatsApp. We confirm stock and share a UPI payment request in the same chat. Prices include 18% GST.</p>
+    <div class="hero-band">
+      <div class="hero">
+        <div class="hero-copy">
+          <p class="eyebrow">Car &amp; bike spare parts · Pune</p>
+          <h1>The right part, matched by part number</h1>
+          <p class="lede">Genuine and OEM-grade spares for Maruti Suzuki, Hyundai, Tata, Honda, Bajaj, Hero and more. Pay by UPI and your order reaches our counter on WhatsApp.</p>
+          <div class="finder">
+            <label class="field search">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4" stroke-linecap="round"/></svg>
+              <input id="q" type="search" placeholder="Part name, part no. or brand" aria-label="Search parts" autocomplete="off">
+            </label>
+            <label class="field vehicle">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M3 15l2-6h14l2 6v4H3z"/><circle cx="7.5" cy="15.5" r="1.3"/><circle cx="16.5" cy="15.5" r="1.3"/></svg>
+              <select id="make" aria-label="Filter by vehicle make"></select>
+            </label>
+          </div>
+          <ul class="trust">
+            <li>GST invoice on every order</li>
+            <li>Dispatch within 24 hours</li>
+            <li>UPI or cash on delivery</li>
+          </ul>
         </div>
-        <ol class="steps">
-          <li><div><b>Match the part number</b><span>Every listing shows the OEM or brand part number and the vehicles it fits.</span></div></li>
-          <li><div><b>Send the order on WhatsApp</b><span>Your cart goes to the seller as a ready-made message with items and totals.</span></div></li>
-          <li><div><b>Pay on WhatsApp</b><span>The seller replies with a UPI request. Pay, share the screenshot, and we dispatch.</span></div></li>
-        </ol>
+        <div class="hero-art" aria-hidden="true">
+          <img src="images/bp-swift.jpg" alt="" width="300" height="300">
+          <img src="images/plug-k12.jpg" alt="" width="300" height="300">
+          <img src="images/chain-splendor.jpg" alt="" width="300" height="300">
+          <img src="images/air-nexon.jpg" alt="" width="300" height="300">
+        </div>
       </div>
+    </div>
 
-      <div class="tools">
-        <label class="field search">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4" stroke-linecap="round"/></svg>
-          <input id="q" type="search" placeholder="Search part name, part no. or brand" aria-label="Search parts" autocomplete="off">
-        </label>
-        <label class="field vehicle">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M3 15l2-6h14l2 6v4H3z"/><circle cx="7.5" cy="15.5" r="1.3"/><circle cx="16.5" cy="15.5" r="1.3"/></svg>
-          <select id="make" aria-label="Filter by vehicle make"></select>
-        </label>
+    <div class="wrap">
+      <div class="shop-head">
+        <h2>Parts in stock</h2>
+        <span id="resultCount" class="num"></span>
       </div>
       <div class="chips" id="cats" role="group" aria-label="Category"></div>
-      <div class="meta-row"><span id="resultCount" class="num"></span><span>Tap a part for specs and fitment</span></div>
       <div class="grid" id="grid"></div>
+
+      <section class="how" aria-labelledby="howTitle">
+        <h2 id="howTitle">How ordering works</h2>
+        <ol>
+          <li><b>Add your parts</b><span>Check the part number and the vehicles it fits, then add it to the cart.</span></li>
+          <li><b>Pay by UPI</b><span>Pay from GPay, PhonePe, Paytm or any UPI app, or scan the QR code.</span></li>
+          <li><b>Send the order on WhatsApp</b><span>Your items, address and UPI reference go to our counter. We confirm and dispatch.</span></li>
+        </ol>
+      </section>
 
       <footer class="site-foot">
         <div><b id="footShop">Gearline Spares</b>Genuine and OEM-grade spares for cars and two-wheelers. Prices include 18% GST. Delivery across Maharashtra in 1–3 days.</div>
@@ -84,7 +109,7 @@
       <form class="gate" id="gate" novalidate>
         <p class="eyebrow">Seller console</p>
         <h2>Counter login</h2>
-        <p class="note">Manage parts, stock, prices and WhatsApp orders.</p>
+        <p class="note">Manage parts, stock, prices, orders and UPI payments.</p>
         <input class="pin field" id="pin" inputmode="numeric" maxlength="4" autocomplete="off" aria-label="4-digit PIN" placeholder="••••">
         <p class="err" id="pinErr" hidden>That PIN doesn't match. The demo PIN is 1234.</p>
         <button class="btn primary block" type="submit">Unlock console</button>
@@ -167,7 +192,9 @@
 
 <div class="toast" id="toast" hidden role="status"></div>
 
-<script src="js/data.js?v=3"></script>
-<script src="js/app.js?v=3"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js" defer></script>
+<script src="js/data.js?v=4"></script>
+<script src="js/share.js?v=4"></script>
+<script src="js/app.js?v=4"></script>
 </body>
 </html>
